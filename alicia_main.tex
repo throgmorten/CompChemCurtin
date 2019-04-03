@@ -1,0 +1,342 @@
+\documentclass[12pt,twoside]{report}
+\usepackage{graphicx}
+%\graphicspath{{C:/Users/Phil/Documents/LaTeX_files/Thesis/Images/}{Images/}{Images/chapter1/}{Images/chapter2/}{Images/chapter3/}}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[para]{threeparttable}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage[export]{adjustbox}
+\usepackage{multirow}
+\usepackage{afterpage}
+\usepackage{titlesec}
+\usepackage{tensor}
+\usepackage[usenames, dvipsnames, cmyk]{xcolor}
+\usepackage{float}
+\usepackage{gensymb}
+%\usepackage[super,sort&compress,comma]{natbib} 
+\usepackage{subcaption}
+%\usepackage{subfig}
+%\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{setspace}
+\usepackage[a4paper,inner=4cm, outer=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{fancyhdr}
+% Changed by me to justify fully not raggedright   % 07/02/2018
+% Changed by me to footnotesize rather than normalfont for textfont and labelfont in figure,subfigure and table captions  % 13/04/2018
+\captionsetup[figure]{labelfont={bf,footnotesize},textfont=footnotesize,singlelinecheck=false,format=hang}
+%\captionsetup[figure]{labelfont=bf,textfont=normalfont,justification=raggedright,singlelinecheck=false,format=hang}
+\captionsetup[subfigure]{labelfont={bf,footnotesize},textfont=footnotesize,justification=centering,format=hang}
+\captionsetup[table]{labelfont={bf,footnotesize},textfont=footnotesize,singlelinecheck=false,format=hang}
+%\captionsetup[table]{labelfont=bf,justification=raggedright,singlelinecheck=false,format=hang}
+%Angstroms
+\newcommand{\angstrom}{\mbox{\normalfont\AA}}
+
+%stuff for blank page breaking it works pretty well
+\makeatletter
+\def\emptypage@emptypage{%
+    \hbox{}%
+     \vspace*{\fill}
+     \begin{center}
+     \end{center}
+     \vspace{\fill}
+     \thispagestyle{empty}\newpage%    
+}%
+\def\cleardoublepage{%
+        \clearpage%
+        \if@twoside%
+            \ifodd\c@page%
+                % do nothing
+            \else%
+                \emptypage@emptypage%
+            \fi%
+        \fi%
+    }%
+\makeatother
+
+% My additions to the packages
+% useful link for fonts:https://en.wikibooks.org/wiki/LaTeX/Fonts
+%Setting up tables
+\usepackage{dcolumn} % supposed to help with align to decimal points
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+%\usepackage{siunitx}
+%\usepackage{array}
+\usepackage{booktabs,makecell, tabularx}
+\renewcommand\theadfont{\bfseries\normalsize}
+%\newcolumntype{C}{>{\centering\arraybackslash}X}
+%\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{longtable}
+\usepackage{afterpage}
+\usepackage{tabu}
+\usepackage{diagbox}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{pbox}
+\def\bfstart#1\bfstop{\bf{#1}} % For bold font columns
+
+% Set the column width of some rows
+\newcommand{\calcfactor}[1]{%
+  \dimexpr#1\textwidth-2\tabcolsep-1.5\arrayrulewidth\relax
+}
+\newcolumntype{P}[1]{p{\calcfactor{#1}}}
+
+% Defining nobreakline to stop tables from splitting
+%https://tex.stackexchange.com/questions/6350/how-to-disable-pagebreak-on-hline-in-longtable
+\makeatletter
+\def\nobreakhline{%
+  \noalign{\ifnum0=`}\fi
+    \penalty\@M
+    \futurelet\@let@token\LT@@nobreakhline}
+\def\LT@@nobreakhline{%
+  \ifx\@let@token\hline
+    \global\let\@gtempa\@gobble
+    \gdef\LT@sep{\penalty\@M\vskip\doublerulesep}% <-- change here
+  \else
+    \global\let\@gtempa\@empty
+    \gdef\LT@sep{\penalty\@M\vskip-\arrayrulewidth}% <-- change here
+  \fi
+  \ifnum0=`{\fi}%
+  \multispan\LT@cols
+     \unskip\leaders\hrule\@height\arrayrulewidth\hfill\cr
+  \noalign{\LT@sep}%
+  \multispan\LT@cols
+     \unskip\leaders\hrule\@height\arrayrulewidth\hfill\cr
+  \noalign{\penalty\@M}%
+  \@gtempa}
+\makeatother
+
+\makeatletter
+\def\@cline#1-#2\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height\arrayrulewidth\hfill
+  \cr
+  \noalign{\nobreak\vskip-\arrayrulewidth}}
+\makeatother
+
+% For Figures/other floats
+\usepackage{placeins}
+%\usepackage{floatrow}
+%\usepackage[label font=bf,labelformat=simple]{subfig}
+%\floatsetup[figure]{style=plain,subcapbesideposition=top}
+
+% Adding colourful frames
+\usepackage{xcolor}
+%\usepackage{mdframed}
+\usepackage{framed}
+%\definecolor{shadecolor}{rgb}{1,0,0}
+%\begin{shaded*}
+%\end{shaded*}
+
+%Setting font for sections
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\fontsize{15
+ }{15}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\fontsize{13}{15}\bfseries}{
+  \thesubsection}{1em}{}
+
+%Adding hyperlinks
+% https://www.sharelatex.com/learn/Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=green,
+}
+\urlstyle{same}
+\usepackage{url}
+
+% Including higher orders in table of contents
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+% Setting up appendix
+\usepackage[toc,title,titletoc]{appendix}
+%\renewcommand{\appendixname}{Appendix}
+%\renewcommand{\appendixtocname}{Appendices}
+
+%Setting up biblio
+% Natbib commands: https://gking.harvard.edu/files/natnotes2.pdf
+%http://mirror.aarnet.edu.au/pub/CTAN/macros/latex/contrib/natbib/natbib.pdf
+%\usepackage[square,numbers,sort&compress,comma]{natbib}
+\usepackage[super,sort&compress,comma]{natbib}
+\usepackage{chapterbib}
+\def\bibfont{\footnotesize}
+\setlength{\bibsep}{0pt plus 0.3ex}
+\usepackage{csquotes}
+% Doesn't work \AtEveryBibitem{\clearfield{month}}
+
+% Making references into normal size text rather than superscript in some cases
+\newcommand*{\citen}[1]{%
+  \begingroup
+    \romannumeral-`\x % remove space at the beginning of \setcitestyle
+    \setcitestyle{numbers}%
+    \cite{#1}%
+  \endgroup   
+}
+
+% Functions
+\usepackage{xfrac}
+\usepackage{amsmath}
+\usepackage{bm}
+%\usepackage{amssymb} % \hslash fancy hbar
+\usepackage{stmaryrd}
+\usepackage{mathrsfs}
+\usepackage{physics} % partial derivatives
+% For angstrom
+\usepackage{siunitx}
+\newcommand*\mean[1]{\overline{#1}}
+
+%Definging hamiltonian
+\newcommand*{\hham}{\hat{\mathcal{H}}}
+
+% Defining a standard aligned function
+\newenvironment{alignedEq}{%
+    {\small 
+     \setlength{\abovedisplayskip}{6pt}
+     \setlength{\belowdisplayskip}{\abovedisplayskip}
+     \setlength{\abovedisplayshortskip}{0pt}
+     \setlength{\belowdisplayshortskip}{3pt}
+     }%
+}   
+% [1] means allow page breaks, but avoid them as much as possible; values of 2,3,4 mean increasing permissiveness.
+% Doesn't work with allign
+% http://texdoc.net/texmf-dist/doc/latex/amsmath/amsldoc.pdf#page=12
+%\allowdisplaybreaks[1]
+% \displaybreak
+
+% Fixing issues with align spacing?
+\setlength{\abovedisplayskip}{0pt}%
+\setlength{\belowdisplayskip}{0pt}%
+\setlength{\abovedisplayshortskip}{0pt}%
+\setlength{\belowdisplayshortskip}{0pt}%
+\setlength{\jot}{0pt}% Inter-equation spacing
+
+% For item lists
+\usepackage{paralist}
+\usepackage{multicol}
+
+% Supposed to help with paragraph spacing issue
+%\setlength{\parskip}{0pt}
+%\setlength{\parskip}{1cm plus4mm minus3mm}
+
+% paragraph indent / stupid extra space
+\setlength{\parindent}{1cm}
+%\setlength{\parindent}{0pt}
+% Fixes issues with paragraph glue
+%\raggedbottom
+\usepackage[bottom]{footmisc}
+
+%Changing spacing
+%\onehalfspace % 324 pages; This is what Toni uses.
+%\setstretch{1.5} % 352 pages; Emily uses this.
+\spacing{1.45} % 344 pages; Compared to Word;
+%\titleformat{\chapter}[bf]
+
+% Prevent certain words from going into the margin
+\hyphenation{mol-e-cules}
+\hyphenation{ex-change}
+\hyphenation{cor-re-la-tion}
+\hyphenation{ex-change--cor-re-la-tion}
+\hyphenation{con-ju-gate}
+\hyphenation{va-can-cies}
+
+% Document start
+\begin{document}
+
+\pagenumbering{gobble}
+\input{Titlepage}
+\cleardoublepage
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[CO]{\thesection \ \rightmark}
+\fancyhead[CE]{\leftmark}
+\fancyfoot{}
+\fancyfoot[RO,LE]{\thepage}
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+\renewcommand{\headrulewidth}{0.4pt}
+%\titleformat{}
+\pagestyle{plain}
+
+\input{Declaration.tex}
+\cleardoublepage
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{Abstract}
+\cleardoublepage
+
+\input{Acknowledgements}
+\cleardoublepage
+
+\input{Symbols_abbreviations}
+\cleardoublepage
+
+\tableofcontents
+\cleardoublepage
+%\listoffigures
+%\cleardoublepage
+%\listoftables
+%\cleardoublepage
+
+\raggedbottom
+
+%\afterpage{\null\thispagestyle{empty}\newpage}
+\setcounter{chapter}{0}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\include{Introduction}
+\cleardoublepage
+\include{Methodology}
+\cleardoublepage
+\include{Chapter1_HCO3_MD}
+\cleardoublepage
+\include{Chapter1A_HCO3_DFT}
+\cleardoublepage
+\include{Chapter2_Flat_Organics}
+\cleardoublepage
+\include{Chapter3_Steps_Organics}
+\cleardoublepage
+\fancyhead[CO]{\leftmark}
+\fancyhead[CE]{\leftmark}
+\include{Conclusion}
+\cleardoublepage
+
+%\pagestyle{fancy}
+%\fancyhead{}
+%\fancyhead[CO]{References}
+%\fancyhead[CE]{References}
+%\fancyfoot{}
+%\fancyfoot[RO,LE]{\thepage}
+%\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+%\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+%\renewcommand{\headrulewidth}{0.4pt}
+
+%\begin{appendices}
+%\fancyhead[CO]{\appendixname\ \thechapter}
+%\fancyhead[CE]{\appendixname\ \thechapter}
+\include{Appendix_FFs}
+\cleardoublepage
+\include{Appendix_AMOEBA}
+\cleardoublepage
+\include{Appendix_metad_clusters}
+\cleardoublepage
+\include{Appendix_pKa}
+\cleardoublepage
+\include{Appendix_IP_QM}
+\end{appendices}
+
+\end{document}

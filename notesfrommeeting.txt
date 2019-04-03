@@ -1,0 +1,42 @@
+Tony
+\providecommand{\sip}[3][1]{\SI[group-digits=false,round-mode=places,round-precision=#1]{#2}{#3}}
+\sip[2]{3.1428}{\rad}
+
+Notes:
+    Package for rounding common values 
+    \usepackage{siunitx}
+    \providecommand{\sip}[3][1]{\SI[group-digits=false,round-mode=places,round-precision=#1]{#2}{#3}}
+    Package for abbreviations
+    \usepackage{glossaries}
+    Package for margins
+    \usepackage{geometry} or .cls package
+    Package for decimal places
+    \usepackage{dcolumn}
+    Color scheme for gnuplot color -> greyscale  **4paolo**
+    http://gnuplot.sourceforge.net/demo/pm3dcolors.html
+
+For captions: \captionsetup[figure]{labelfont={bf,footnotesize},textfont=footnotesize,singlelinecheck=false,format=hang}
+
+
+John Owens: Common Errors in Tech. Writ.
+https://www.ece.ucdavis.edu/~jowens/commonerrors.html
+
+Spelling:
+    \usepackage{aspell}
+    
+To define the graphics location for each chapter:
+     \graphicspath
+
+Tables that split over a page:
+    \usepackage{longtables}
+
+PDFs with comments
+foxit
+
+They Say I Say Full Text.pdf
+
+Short captions for tables in Table of Contents 
+\caption[short caption]{Long caption.}
+
+Words in margins could be a sign of misunderstood hyphenating by latex
+
