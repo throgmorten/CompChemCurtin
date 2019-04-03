@@ -1,10 +1,6 @@
 # CompChemCurtin
 
-# Check status
-git status
-
-# Add file to commit 
-# (must be done after all desired edits)
+Add a File (need a github account):
 git add filename
-
-
+git push
+git commit 
