@@ -1,1 +1,3 @@
 # CompChemCurtin
+
+LaTeX notes, etc. 
